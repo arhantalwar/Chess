@@ -1,5 +1,7 @@
 # CHESS in C
 
+![thumbnail](./thumbnail.png)
+
 ## QUICK START
 
 Dependencies
