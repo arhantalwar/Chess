@@ -1,14 +1,12 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <raylib.h>
+#include <stdlib.h>
+#include <string.h>
 
 #define width 480
 #define height 480
 #define sqSize 60
-
-Color lightSquare = (Color){240, 217, 181, 255};
-Color darkSquare = (Color){22, 21, 18, 255};
-
-//static char *pos = "rr"; // FOR FEN
 
 enum piece { 
     None = 0, 
@@ -57,49 +55,133 @@ int main(void) {
 
     // ------------------- WHITE -------------------
 
-    squareBoard[0] = Rook | White;
-    squareBoard[7] = Rook | White;
+    //squareBoard[0] = Rook | White;
+    //squareBoard[7] = Rook | White;
 
-    squareBoard[1] = Knight | White;
-    squareBoard[6] = Knight | White;
+    //squareBoard[1] = Knight | White;
+    //squareBoard[6] = Knight | White;
 
-    squareBoard[2] = Bishop | White;
-    squareBoard[5] = Bishop | White;
+    //squareBoard[2] = Bishop | White;
+    //squareBoard[5] = Bishop | White;
 
-    squareBoard[3] = King | White;
-    squareBoard[4] = Queen | White;
+    //squareBoard[3] = King | White;
+    //squareBoard[4] = Queen | White;
 
-    squareBoard[8] = Pawn | White;
-    squareBoard[9] = Pawn | White;
-    squareBoard[10] = Pawn | White;
-    squareBoard[11] = Pawn | White;
-    squareBoard[12] = Pawn | White;
-    squareBoard[13] = Pawn | White;
-    squareBoard[14] = Pawn | White;
-    squareBoard[15] = Pawn | White;
+    //squareBoard[8] = Pawn | White;
+    //squareBoard[9] = Pawn | White;
+    //squareBoard[10] = Pawn | White;
+    //squareBoard[11] = Pawn | White;
+    //squareBoard[12] = Pawn | White;
+    //squareBoard[13] = Pawn | White;
+    //squareBoard[14] = Pawn | White;
+    //squareBoard[15] = Pawn | White;
 
-    // ------------------- BLACK -------------------
+    //// ------------------- BLACK -------------------
 
-    squareBoard[48] = Pawn | Black;
-    squareBoard[49] = Pawn | Black;
-    squareBoard[50] = Pawn | Black;
-    squareBoard[51] = Pawn | Black;
-    squareBoard[52] = Pawn | Black;
-    squareBoard[53] = Pawn | Black;
-    squareBoard[54] = Pawn | Black;
-    squareBoard[55] = Pawn | Black;
+    //squareBoard[48] = Pawn | Black;
+    //squareBoard[49] = Pawn | Black;
+    //squareBoard[50] = Pawn | Black;
+    //squareBoard[51] = Pawn | Black;
+    //squareBoard[52] = Pawn | Black;
+    //squareBoard[53] = Pawn | Black;
+    //squareBoard[54] = Pawn | Black;
+    //squareBoard[55] = Pawn | Black;
 
-    squareBoard[56] = Rook | Black;
-    squareBoard[63] = Rook | Black;
+    //squareBoard[56] = Rook | Black;
+    //squareBoard[63] = Rook | Black;
 
-    squareBoard[57] = Knight | Black;
-    squareBoard[62] = Knight | Black;
+    //squareBoard[57] = Knight | Black;
+    //squareBoard[62] = Knight | Black;
 
-    squareBoard[58] = Bishop | Black;
-    squareBoard[61] = Bishop | Black;
+    //squareBoard[58] = Bishop | Black;
+    //squareBoard[61] = Bishop | Black;
 
-    squareBoard[59] = King | Black;
-    squareBoard[60] = Queen | Black;
+    //squareBoard[59] = King | Black;
+    //squareBoard[60] = Queen | Black;
+
+    // ------------------- FEN -------------------
+
+    //static char *pos = "3KQNRBP//kqnrbp"; // FOR FEN
+    static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"; // FOR FEN
+
+    int file = 0;
+    int rank = 0;
+
+    for(int i = 0; i < strlen(pos); i++) {
+
+        char *c = &pos[i];
+
+        if(isdigit(*c)) {
+            file += atoi(c);
+        } else if (strncmp("/", c, 1) == 0) {
+            rank++;
+            file = 0;
+        } else {
+
+            if (strncmp("k", c, 1) == 0) {
+                squareBoard[8 * rank + file] = 17;
+                file++;
+            }
+
+            if (strncmp("p", c, 1) == 0) {
+                squareBoard[8 * rank + file] = 18;
+                file++;
+            }
+
+            if (strncmp("n", c, 1) == 0) {
+                squareBoard[8 * rank + file] = 19;
+                file++;
+            }
+
+            if (strncmp("b", c, 1) == 0) {
+                squareBoard[8 * rank + file] = 20;
+                file++;
+            } 
+
+            if (strncmp("r", c, 1) == 0) {
+                squareBoard[8 * rank + file] = 21;
+                file++;
+            } 
+
+            if (strncmp("q", c, 1) == 0) {
+                squareBoard[8 * rank + file] = 22;
+                file++;
+            } 
+
+            if(strncmp("K", c, 1) == 0) {
+                squareBoard[8 * rank + file] = 9;
+                file++;
+            } 
+
+            if (strncmp("P", c, 1) == 0) {
+                squareBoard[8 * rank + file] = 10;
+                file++;
+            } 
+
+            if (strncmp("N", c, 1) == 0) {
+                squareBoard[8 * rank + file] = 11;
+                file++;
+            } 
+
+            if (strncmp("B", c, 1) == 0) {
+                squareBoard[8 * rank + file] = 12;
+                file++;
+            } 
+
+            if (strncmp("R", c, 1) == 0) {
+                squareBoard[8 * rank + file] = 13;
+                file++;
+            } 
+
+            if (strncmp("Q", c, 1) == 0) {
+                squareBoard[8 * rank + file] = 14;
+                file++;
+            }
+
+        }
+
+
+    }
 
     for(int file = 0; file < 8; file++) {
         for(int rank = 0; rank < 8; rank++) {
@@ -165,6 +247,8 @@ int main(void) {
         int mouseOnBoard = mouseY * 8 + mouseX;
 
         BeginDrawing();
+
+        //printf("%d\n", mouseOnBoard);
 
         EndDrawing();
 
