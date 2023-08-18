@@ -55,7 +55,6 @@ int main(void) {
 
     // ------------------- FEN -------------------
 
-    //static char *pos = "3KQNRBP//kqnrbp"; // FOR FEN
     static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"; // FOR FEN
 
     int file = 0;
@@ -202,7 +201,7 @@ int main(void) {
 
         BeginDrawing();
 
-        //printf("%d\n", mouseOnBoard);
+        printf("%d\n", mouseOnBoard);
 
         EndDrawing();
 
