@@ -53,52 +53,6 @@ int main(void) {
         }
     }
 
-    // ------------------- WHITE -------------------
-
-    //squareBoard[0] = Rook | White;
-    //squareBoard[7] = Rook | White;
-
-    //squareBoard[1] = Knight | White;
-    //squareBoard[6] = Knight | White;
-
-    //squareBoard[2] = Bishop | White;
-    //squareBoard[5] = Bishop | White;
-
-    //squareBoard[3] = King | White;
-    //squareBoard[4] = Queen | White;
-
-    //squareBoard[8] = Pawn | White;
-    //squareBoard[9] = Pawn | White;
-    //squareBoard[10] = Pawn | White;
-    //squareBoard[11] = Pawn | White;
-    //squareBoard[12] = Pawn | White;
-    //squareBoard[13] = Pawn | White;
-    //squareBoard[14] = Pawn | White;
-    //squareBoard[15] = Pawn | White;
-
-    //// ------------------- BLACK -------------------
-
-    //squareBoard[48] = Pawn | Black;
-    //squareBoard[49] = Pawn | Black;
-    //squareBoard[50] = Pawn | Black;
-    //squareBoard[51] = Pawn | Black;
-    //squareBoard[52] = Pawn | Black;
-    //squareBoard[53] = Pawn | Black;
-    //squareBoard[54] = Pawn | Black;
-    //squareBoard[55] = Pawn | Black;
-
-    //squareBoard[56] = Rook | Black;
-    //squareBoard[63] = Rook | Black;
-
-    //squareBoard[57] = Knight | Black;
-    //squareBoard[62] = Knight | Black;
-
-    //squareBoard[58] = Bishop | Black;
-    //squareBoard[61] = Bishop | Black;
-
-    //squareBoard[59] = King | Black;
-    //squareBoard[60] = Queen | Black;
-
     // ------------------- FEN -------------------
 
     //static char *pos = "3KQNRBP//kqnrbp"; // FOR FEN
