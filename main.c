@@ -8,6 +8,9 @@
 #define height 480
 #define sqSize 60
 
+static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"; // FOR FEN
+static int piece_info = 0;
+
 enum piece { 
     None = 0, 
     King = 1, 
@@ -55,8 +58,6 @@ int main(void) {
 
     // ------------------- FEN -------------------
 
-    static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"; // FOR FEN
-
     int file = 0;
     int rank = 0;
 
@@ -65,74 +66,67 @@ int main(void) {
         char *c = &pos[i];
 
         if(isdigit(*c)) {
+
             file += atoi(c);
+
         } else if (strncmp("/", c, 1) == 0) {
+
             rank++;
             file = 0;
+
         } else {
 
             if (strncmp("k", c, 1) == 0) {
                 squareBoard[8 * rank + file] = 17;
-                file++;
             }
 
             if (strncmp("p", c, 1) == 0) {
                 squareBoard[8 * rank + file] = 18;
-                file++;
             }
 
             if (strncmp("n", c, 1) == 0) {
                 squareBoard[8 * rank + file] = 19;
-                file++;
             }
 
             if (strncmp("b", c, 1) == 0) {
                 squareBoard[8 * rank + file] = 20;
-                file++;
             } 
 
             if (strncmp("r", c, 1) == 0) {
                 squareBoard[8 * rank + file] = 21;
-                file++;
             } 
 
             if (strncmp("q", c, 1) == 0) {
                 squareBoard[8 * rank + file] = 22;
-                file++;
             } 
 
             if(strncmp("K", c, 1) == 0) {
                 squareBoard[8 * rank + file] = 9;
-                file++;
             } 
 
             if (strncmp("P", c, 1) == 0) {
                 squareBoard[8 * rank + file] = 10;
-                file++;
             } 
 
             if (strncmp("N", c, 1) == 0) {
                 squareBoard[8 * rank + file] = 11;
-                file++;
             } 
 
             if (strncmp("B", c, 1) == 0) {
                 squareBoard[8 * rank + file] = 12;
-                file++;
             } 
 
             if (strncmp("R", c, 1) == 0) {
                 squareBoard[8 * rank + file] = 13;
-                file++;
             } 
 
             if (strncmp("Q", c, 1) == 0) {
                 squareBoard[8 * rank + file] = 14;
-                file++;
             }
 
-        }
+            file++;
 
+        }
 
     }
 
@@ -190,18 +184,26 @@ int main(void) {
         }
     }
 
-    // ------------------- TRACKING MOUSE -------------------
-
 
     while(!WindowShouldClose()) {
+
+        // ------------------- TRACKING MOUSE -------------------
 
         int mouseX = GetMouseX() / sqSize;
         int mouseY = GetMouseY() / sqSize;
         int mouseOnBoard = mouseY * 8 + mouseX;
 
-        BeginDrawing();
+        if(IsMouseButtonPressed(0)) {
+            if(squareBoard[mouseOnBoard] != 0 && piece_info == 0) {
+                piece_info = squareBoard[mouseOnBoard];
+                squareBoard[mouseOnBoard] = 0;
+            } else {
+                squareBoard[mouseOnBoard] = piece_info;
+                piece_info = 0;
+            }
+        }
 
-        printf("%d\n", mouseOnBoard);
+        BeginDrawing();
 
         EndDrawing();
 
