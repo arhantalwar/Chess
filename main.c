@@ -23,6 +23,86 @@ enum piece {
     Black = 16,
 };
 
+void updateChessBoard(
+        int *squareBoard,
+        Image white_pawn,
+        Image white_knight,
+        Image white_queen,
+        Image white_king,
+        Image white_bishop,
+        Image white_rook,
+        Image black_pawn,
+        Image black_knight,
+        Image black_queen,
+        Image black_king,
+        Image black_bishop,
+        Image black_rook
+        ) {
+
+    for(int file = 0; file < 8; file++) {
+        for(int rank = 0; rank < 8; rank++) {
+
+            if(squareBoard[8 * rank + file] == 0) {
+                if((rank + file) % 2 != 0) {
+                    DrawRectangle(file * sqSize, rank * sqSize, sqSize, sqSize, WHITE);
+                } else {
+                    DrawRectangle(file * sqSize, rank * sqSize, sqSize, sqSize, DARKPURPLE);
+                }
+            }
+
+            if(squareBoard[8 * rank + file] == 9) {
+                DrawTexture(LoadTextureFromImage(white_king), file * sqSize, rank * sqSize, RAYWHITE);
+            }
+
+            if(squareBoard[8 * rank + file] == 10) {
+                DrawTexture(LoadTextureFromImage(white_pawn), file * sqSize, rank * sqSize, RAYWHITE);
+            }
+
+            if(squareBoard[8 * rank + file] == 11) {
+                DrawTexture(LoadTextureFromImage(white_knight), file * sqSize, rank * sqSize, RAYWHITE);
+            }
+
+            if(squareBoard[8 * rank + file] == 12) {
+                DrawTexture(LoadTextureFromImage(white_bishop), file * sqSize, rank * sqSize, RAYWHITE);
+            }
+
+            if(squareBoard[8 * rank + file] == 13) {
+                DrawTexture(LoadTextureFromImage(white_rook), file * sqSize, rank * sqSize, RAYWHITE);
+            }
+
+            if(squareBoard[8 * rank + file] == 14) {
+                DrawTexture(LoadTextureFromImage(white_queen), file * sqSize, rank * sqSize, RAYWHITE);
+            }
+
+            if(squareBoard[8 * rank + file] == 17) {
+                DrawTexture(LoadTextureFromImage(black_king), file * sqSize, rank * sqSize, RAYWHITE);
+            }
+
+            if(squareBoard[8 * rank + file] == 18) {
+                DrawTexture(LoadTextureFromImage(black_pawn), file * sqSize, rank * sqSize, RAYWHITE);
+            }
+
+            if(squareBoard[8 * rank + file] == 19) {
+                DrawTexture(LoadTextureFromImage(black_knight), file * sqSize, rank * sqSize, RAYWHITE);
+            }
+
+            if(squareBoard[8 * rank + file] == 20) {
+                DrawTexture(LoadTextureFromImage(black_bishop), file * sqSize, rank * sqSize, RAYWHITE);
+            }
+
+            if(squareBoard[8 * rank + file] == 21) {
+                DrawTexture(LoadTextureFromImage(black_rook), file * sqSize, rank * sqSize, RAYWHITE);
+            }
+
+            if(squareBoard[8 * rank + file] == 22) {
+                DrawTexture(LoadTextureFromImage(black_queen), file * sqSize, rank * sqSize, RAYWHITE);
+            }
+
+        }
+    }
+
+}
+
 int main(void) {
 
     InitWindow(width, height, "CHESS BOARD");
@@ -130,60 +210,23 @@ int main(void) {
 
     }
 
-    for(int file = 0; file < 8; file++) {
-        for(int rank = 0; rank < 8; rank++) {
+    // ------------------- FEN END -------------------
 
-            if(squareBoard[8 * rank + file] == 9) {
-                DrawTexture(LoadTextureFromImage(white_king), file * sqSize, rank * sqSize, RAYWHITE);
-            }
-
-            if(squareBoard[8 * rank + file] == 10) {
-                DrawTexture(LoadTextureFromImage(white_pawn), file * sqSize, rank * sqSize, RAYWHITE);
-            }
-
-            if(squareBoard[8 * rank + file] == 11) {
-                DrawTexture(LoadTextureFromImage(white_knight), file * sqSize, rank * sqSize, RAYWHITE);
-            }
-
-            if(squareBoard[8 * rank + file] == 12) {
-                DrawTexture(LoadTextureFromImage(white_bishop), file * sqSize, rank * sqSize, RAYWHITE);
-            }
-
-            if(squareBoard[8 * rank + file] == 13) {
-                DrawTexture(LoadTextureFromImage(white_rook), file * sqSize, rank * sqSize, RAYWHITE);
-            }
-
-            if(squareBoard[8 * rank + file] == 14) {
-                DrawTexture(LoadTextureFromImage(white_queen), file * sqSize, rank * sqSize, RAYWHITE);
-            }
-
-            if(squareBoard[8 * rank + file] == 17) {
-                DrawTexture(LoadTextureFromImage(black_king), file * sqSize, rank * sqSize, RAYWHITE);
-            }
-
-            if(squareBoard[8 * rank + file] == 18) {
-                DrawTexture(LoadTextureFromImage(black_pawn), file * sqSize, rank * sqSize, RAYWHITE);
-            }
-
-            if(squareBoard[8 * rank + file] == 19) {
-                DrawTexture(LoadTextureFromImage(black_knight), file * sqSize, rank * sqSize, RAYWHITE);
-            }
-
-            if(squareBoard[8 * rank + file] == 20) {
-                DrawTexture(LoadTextureFromImage(black_bishop), file * sqSize, rank * sqSize, RAYWHITE);
-            }
-
-            if(squareBoard[8 * rank + file] == 21) {
-                DrawTexture(LoadTextureFromImage(black_rook), file * sqSize, rank * sqSize, RAYWHITE);
-            }
-
-            if(squareBoard[8 * rank + file] == 22) {
-                DrawTexture(LoadTextureFromImage(black_queen), file * sqSize, rank * sqSize, RAYWHITE);
-            }
-
-        }
-    }
-
+    updateChessBoard(
+            squareBoard,
+            white_pawn,
+            white_knight,
+            white_queen,
+            white_king,
+            white_bishop,
+            white_rook,
+            black_pawn,
+            black_knight,
+            black_queen,
+            black_king,
+            black_bishop,
+            black_rook
+            );
 
     while(!WindowShouldClose()) {
 
@@ -198,8 +241,39 @@ int main(void) {
                 piece_info = squareBoard[mouseOnBoard];
                 squareBoard[mouseOnBoard] = 0;
             } else {
+                squareBoard[mouseOnBoard] = 0;
+                updateChessBoard(
+                        squareBoard,
+                        white_pawn,
+                        white_knight,
+                        white_queen,
+                        white_king,
+                        white_bishop,
+                        white_rook,
+                        black_pawn,
+                        black_knight,
+                        black_queen,
+                        black_king,
+                        black_bishop,
+                        black_rook
+                        );
                 squareBoard[mouseOnBoard] = piece_info;
                 piece_info = 0;
+                updateChessBoard(
+                        squareBoard,
+                        white_pawn,
+                        white_knight,
+                        white_queen,
+                        white_king,
+                        white_bishop,
+                        white_rook,
+                        black_pawn,
+                        black_knight,
+                        black_queen,
+                        black_king,
+                        black_bishop,
+                        black_rook
+                        );
             }
         }
 
@@ -208,6 +282,22 @@ int main(void) {
         EndDrawing();
 
     }
+
+    UnloadImage(black_king);
+    UnloadImage(black_pawn);
+    UnloadImage(black_rook);
+    UnloadImage(black_bishop);
+    UnloadImage(black_knight);
+    UnloadImage(black_queen);
+
+    UnloadImage(white_king);
+    UnloadImage(white_pawn);
+    UnloadImage(white_rook);
+    UnloadImage(white_bishop);
+    UnloadImage(white_knight);
+    UnloadImage(white_queen);
+
+    CloseWindow();
 
     return 0;
 
