@@ -28,7 +28,7 @@ void initChessBoard(int *squareBoard) {
     for(int file = 0; file < 8; file++) {
         for(int rank = 0; rank < 8; rank++) {
             bool isLightSquared = (file + rank) % 2 != 0;
-            Color color = isLightSquared ? WHITE : DARKPURPLE;
+            Color color = isLightSquared ? DARKPURPLE : WHITE;
             DrawRectangle(file * sqSize, rank * sqSize, sqSize, sqSize, color);
         }
     }
@@ -127,9 +127,9 @@ void updateChessBoard(
 
             if(squareBoard[8 * rank + file] == None) {
                 if((rank + file) % 2 != 0) {
-                    DrawRectangle(file * sqSize, rank * sqSize, sqSize, sqSize, WHITE);
-                } else {
                     DrawRectangle(file * sqSize, rank * sqSize, sqSize, sqSize, DARKPURPLE);
+                } else {
+                    DrawRectangle(file * sqSize, rank * sqSize, sqSize, sqSize, WHITE);
                 }
             }
 
