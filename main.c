@@ -10,6 +10,7 @@
 
 static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"; // FOR FEN
 static int piece_info = 0;
+static int validate_movies_list[64] = { 0 };
 
 enum piece { 
     None = 0, 
@@ -186,6 +187,10 @@ void updateChessBoard(
 
 }
 
+void validateRook(int rank, int file) {
+
+}
+
 int main(void) {
 
     InitWindow(width, height, "CHESS BOARD");
@@ -242,6 +247,11 @@ int main(void) {
             if(squareBoard[mouseOnBoard] != 0 && piece_info == 0) {
                 piece_info = squareBoard[mouseOnBoard];
                 squareBoard[mouseOnBoard] = 0;
+                switch (piece_info) {
+                    case (White | Rook):
+                        validateRook(mouseX, mouseY);
+                        break;
+                }
             } else {
                 squareBoard[mouseOnBoard] = 0;
                 updateChessBoard(
