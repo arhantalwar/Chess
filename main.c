@@ -189,6 +189,11 @@ void updateChessBoard(
 
 void validateRook(int rank, int file) {
 
+    for(int i = 0; i < 8; i++) {
+        validate_movies_list[i] = printf("%d ", 8 * rank + i);
+        validate_movies_list[i + 2] = printf("%d ", 8 * i + file);
+    }
+
 }
 
 int main(void) {
@@ -241,16 +246,17 @@ int main(void) {
 
         int mouseX = GetMouseX() / sqSize;
         int mouseY = GetMouseY() / sqSize;
-        int mouseOnBoard = mouseY * 8 + mouseX;
+        int mouseOnBoard = 8 * mouseY + mouseX;
 
         if(IsMouseButtonPressed(0)) {
+            validateRook(mouseY, mouseX);
             if(squareBoard[mouseOnBoard] != 0 && piece_info == 0) {
                 piece_info = squareBoard[mouseOnBoard];
                 squareBoard[mouseOnBoard] = 0;
                 switch (piece_info) {
-                    case (White | Rook):
-                        validateRook(mouseX, mouseY);
-                        break;
+                    //case (White | Rook):
+                    //    validateRook(mouseX, mouseY);
+                    //    break;
                 }
             } else {
                 squareBoard[mouseOnBoard] = 0;
@@ -288,6 +294,8 @@ int main(void) {
                 piece_info = 0;
             }
         }
+
+        //printf("%d %d\n", mouseX, mouseY);
 
         BeginDrawing();
 
