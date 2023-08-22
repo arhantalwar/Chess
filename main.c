@@ -3,6 +3,7 @@
 #include <raylib.h>
 #include <stdlib.h>
 #include <string.h>
+#include "rook.c"
 
 #define width 480
 #define height 480
@@ -10,7 +11,13 @@
 
 static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"; // FOR FEN
 static int piece_info = 0;
-static int validate_movies_list[64] = { 0 };
+static int all_possible_moves[32] = { 0 };
+
+void show() {
+    for(int i = 0; i < 32; i++) {
+        printf("%d ", all_possible_moves[i]);
+    }
+}
 
 enum piece { 
     None = 0, 
@@ -187,15 +194,6 @@ void updateChessBoard(
 
 }
 
-void validateRook(int rank, int file) {
-
-    for(int i = 0; i < 8; i++) {
-        validate_movies_list[i] = printf("%d ", 8 * rank + i);
-        validate_movies_list[i + 2] = printf("%d ", 8 * i + file);
-    }
-
-}
-
 int main(void) {
 
     InitWindow(width, height, "CHESS BOARD");
@@ -249,14 +247,14 @@ int main(void) {
         int mouseOnBoard = 8 * mouseY + mouseX;
 
         if(IsMouseButtonPressed(0)) {
-            validateRook(mouseY, mouseX);
             if(squareBoard[mouseOnBoard] != 0 && piece_info == 0) {
                 piece_info = squareBoard[mouseOnBoard];
                 squareBoard[mouseOnBoard] = 0;
                 switch (piece_info) {
-                    //case (White | Rook):
-                    //    validateRook(mouseX, mouseY);
-                    //    break;
+                    case (White | Rook):
+                        validateRook(all_possible_moves, mouseX, mouseY);
+                        show();
+                        break;
                 }
             } else {
                 squareBoard[mouseOnBoard] = 0;
@@ -294,8 +292,6 @@ int main(void) {
                 piece_info = 0;
             }
         }
-
-        //printf("%d %d\n", mouseX, mouseY);
 
         BeginDrawing();
 
