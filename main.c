@@ -5,6 +5,7 @@
 #include <string.h>
 #include "rook.c"
 #include "bishop.c"
+#include "knight.c"
 
 #define width 480
 #define height 480
@@ -248,17 +249,29 @@ int main(void) {
         int mouseOnBoard = 8 * mouseY + mouseX;
 
         if(IsMouseButtonPressed(0)) {
-            validateBishop(all_possible_moves, mouseX, mouseY);
+            validateKnight(all_possible_moves, mouseX, mouseY);
             show();
             if(squareBoard[mouseOnBoard] != 0 && piece_info == 0) {
                 piece_info = squareBoard[mouseOnBoard];
                 squareBoard[mouseOnBoard] = 0;
-                switch (piece_info) {
-                    case (White | Rook):
-                        validateRook(all_possible_moves, mouseX, mouseY);
-                        show();
-                        break;
-                }
+                //switch (piece_info) {
+
+                //    case (White | Rook):
+                //        validateRook(all_possible_moves, mouseX, mouseY);
+                //        show();
+                //        break;
+
+                //    case (White | Bishop):
+                //        validateBishop(all_possible_moves, mouseX, mouseY);
+                //        show();
+                //        break;
+
+                //    case (White | Knight):
+                //        validateKnight(all_possible_moves, mouseX, mouseY);
+                //        show();
+                //        break;
+
+                //}
             } else {
                 squareBoard[mouseOnBoard] = 0;
                 updateChessBoard(

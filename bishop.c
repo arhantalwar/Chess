@@ -1,11 +1,11 @@
-static int elem_in = 0;
+int b_elem_in = 0;
 
 void NE(int* all_possible_moves, int rank, int file) {
     for(int i = rank; i >= 0; i--) {
         if(file >= 0 && file <= 7) {
-            all_possible_moves[elem_in] = (8 * i + file);
+            all_possible_moves[b_elem_in] = (8 * i + file);
             file++;
-            elem_in++;
+            b_elem_in++;
         }
     }
 }
@@ -13,9 +13,9 @@ void NE(int* all_possible_moves, int rank, int file) {
 void WS(int* all_possible_moves, int rank, int file) {
     for(int i = rank; i <= 7; i++) {
         if(file >= 0 && file <= 7) {
-            all_possible_moves[elem_in] = (8 * i + file);
+            all_possible_moves[b_elem_in] = (8 * i + file);
             file--;
-            elem_in++;
+            b_elem_in++;
         }
     }
 }
@@ -23,9 +23,9 @@ void WS(int* all_possible_moves, int rank, int file) {
 void WN(int* all_possible_moves, int rank, int file) {
     for(int i = rank; i >= 0; i--) {
         if(file >= 0 && file <= 7) {
-            all_possible_moves[elem_in] = (8 * i + file);
+            all_possible_moves[b_elem_in] = (8 * i + file);
             file--;
-            elem_in++;
+            b_elem_in++;
         }
     }
 }
@@ -33,9 +33,9 @@ void WN(int* all_possible_moves, int rank, int file) {
 void SE(int* all_possible_moves, int rank, int file) {
     for(int i = rank; i <= 7; i++) {
         if(file >= 0 && file <= 7) {
-            all_possible_moves[elem_in] = (8 * i + file);
+            all_possible_moves[b_elem_in] = (8 * i + file);
             file++;
-            elem_in++;
+            b_elem_in++;
         }
     }
 }
@@ -47,11 +47,11 @@ int* validateBishop(int* all_possible_moves, int rank, int file) {
     WN(all_possible_moves, rank, file);
     SE(all_possible_moves, rank, file);
 
-    for(int i = elem_in; i < 32; i++) {
+    for(int i = b_elem_in; i < 32; i++) {
         all_possible_moves[i] = -1;
     }
 
-    elem_in = 0;
+    b_elem_in = 0;
 
     return all_possible_moves;
 
