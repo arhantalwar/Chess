@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "rook.c"
+#include "bishop.c"
 
 #define width 480
 #define height 480
@@ -247,6 +248,8 @@ int main(void) {
         int mouseOnBoard = 8 * mouseY + mouseX;
 
         if(IsMouseButtonPressed(0)) {
+            validateBishop(all_possible_moves, mouseX, mouseY);
+            show();
             if(squareBoard[mouseOnBoard] != 0 && piece_info == 0) {
                 piece_info = squareBoard[mouseOnBoard];
                 squareBoard[mouseOnBoard] = 0;

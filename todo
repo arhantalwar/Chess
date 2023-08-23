@@ -1,8 +1,8 @@
 [X] Implement FEN
 [X] Add movement to pieces
 [ ] Validate movements
-    [ ] Rook
-    [ ] Bishop
+    [X] Rook
+    [X] Bishop
     [ ] Queen
     [ ] Knight
     [ ] Pawn
