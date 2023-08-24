@@ -42,10 +42,10 @@ void SE(int* all_possible_moves, int rank, int file) {
 
 int* validateBishop(int* all_possible_moves, int rank, int file) {
 
-    NE(all_possible_moves, rank, file);
     WS(all_possible_moves, rank, file);
     WN(all_possible_moves, rank, file);
     SE(all_possible_moves, rank, file);
+    NE(all_possible_moves, rank, file);
 
     for(int i = b_elem_in; i < 32; i++) {
         all_possible_moves[i] = -1;
