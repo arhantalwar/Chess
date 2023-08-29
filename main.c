@@ -12,8 +12,8 @@
 #define height 480
 #define sqSize 60
 
-//static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"; // FOR FEN
-static char *pos = "//4B"; // FOR FEN
+static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"; // FOR FEN
+//static char *pos = "//4B"; // FOR FEN
 static int piece_info = 0;
 static int all_possible_moves[32] = { 0 };
 
