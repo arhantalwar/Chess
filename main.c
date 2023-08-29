@@ -7,13 +7,14 @@
 #include "rook.c"
 #include "bishop.c"
 #include "knight.c"
+#include "queen.c"
 
 #define width 480
 #define height 480
 #define sqSize 60
 
-static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"; // FOR FEN
-//static char *pos = "//4B"; // FOR FEN
+//static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"; // FOR FEN
+static char *pos = "//4B/5Q/2N/4R"; // FOR FEN
 static int piece_info = 0;
 static int all_possible_moves[32] = { 0 };
 
@@ -289,19 +290,23 @@ int main(void) {
                 switch (piece_info) {
 
                     case (White | Rook):
-                        validateRook(all_possible_moves, mouseX, mouseY);
+                        validateRook(all_possible_moves, mouseY, mouseX);
+                        show();
                         break;
 
                     case (White | Bishop):
-                        validateBishop(all_possible_moves, mouseX, mouseY);
-                        sortList();
-                        removeDupFromList();
-                        sortList();
+                        validateBishop(all_possible_moves, mouseY, mouseX);
                         show();
                         break;
 
                     case (White | Knight):
-                        validateKnight(all_possible_moves, mouseX, mouseY);
+                        validateKnight(all_possible_moves, mouseY, mouseX);
+                        show();
+                        break;
+
+                    case (White | Queen):
+                        validateQueen(all_possible_moves, mouseY, mouseX);
+                        show();
                         break;
 
                 }

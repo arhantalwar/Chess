@@ -1,13 +1,69 @@
-#include "rook.c"
-#include "bishop.c"
+int q_elem_in = 0;
 
-int main() {
+void NEQ(int* all_possible_moves, int rank, int file) {
+    for(int i = rank; i >= 0; i--) {
+        if(file >= 0 && file <= 7) {
+            all_possible_moves[q_elem_in] = (8 * i + file);
+            file++;
+            q_elem_in++;
+        }
+    }
+}
 
-    int points[10] = {0};
+void WSQ(int* all_possible_moves, int rank, int file) {
+    for(int i = rank; i <= 7; i++) {
+        if(file >= 0 && file <= 7) {
+            all_possible_moves[q_elem_in] = (8 * i + file);
+            file--;
+            q_elem_in++;
+        }
+    }
+}
 
-    NE(points, 10, 20);
+void WNQ(int* all_possible_moves, int rank, int file) {
+    for(int i = rank; i >= 0; i--) {
+        if(file >= 0 && file <= 7) {
+            all_possible_moves[q_elem_in] = (8 * i + file);
+            file--;
+            q_elem_in++;
+        }
+    }
+}
 
-    return 0;
+void SEQ(int* all_possible_moves, int rank, int file) {
+    for(int i = rank; i <= 7; i++) {
+        if(file >= 0 && file <= 7) {
+            all_possible_moves[q_elem_in] = (8 * i + file);
+            file++;
+            q_elem_in++;
+        }
+    }
+}
+
+int* validateQueen(int* all_possible_moves, int rank, int file) {
+
+    WSQ(all_possible_moves, rank, file);
+    WNQ(all_possible_moves, rank, file);
+    SEQ(all_possible_moves, rank, file);
+    NEQ(all_possible_moves, rank, file);
+
+    for(int i = 0; i < 8; i++) {
+        all_possible_moves[q_elem_in] = (8 * rank + i);
+        q_elem_in++;
+    }
+
+    for(int i = 0; i < 8; i++) {
+        all_possible_moves[q_elem_in] = (8 * i + file);
+        q_elem_in++;
+    }
+
+    for(int i = q_elem_in; i < 32; i++) {
+        all_possible_moves[i] = -1;
+    }
+
+    q_elem_in = 0;
+
+    return all_possible_moves;
 
 }
 
