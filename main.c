@@ -289,11 +289,11 @@ int main(void) {
                 switch (piece_info) {
 
                     case (White | Rook):
-                        validateRook(all_possible_moves, mouseX, mouseY);
+                        validateRook(all_possible_moves, mouseY, mouseX);
                         break;
 
                     case (White | Bishop):
-                        validateBishop(all_possible_moves, mouseX, mouseY);
+                        validateBishop(all_possible_moves, mouseY, mouseX);
                         sortList();
                         removeDupFromList();
                         sortList();
@@ -301,7 +301,7 @@ int main(void) {
                         break;
 
                     case (White | Knight):
-                        validateKnight(all_possible_moves, mouseX, mouseY);
+                        validateKnight(all_possible_moves, mouseY, mouseX);
                         break;
 
                 }
