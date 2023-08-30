@@ -13,15 +13,19 @@
 #define height 480
 #define sqSize 60
 
-//static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"; // FOR FEN
-static char *pos = "//4B/5Q/2N/4R"; // FOR FEN
+//static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+static char *pos = "//4B/5Q/2N/4R";
+
 static int piece_info = 0;
 static int all_possible_moves[32] = { 0 };
 
 void show() {
+    printf("+++++++++++++++++++++++\n");
     for(int i = 0; i < 32; i++) {
-        printf("%d ", all_possible_moves[i]);
+        if(all_possible_moves[i] != -1)
+            printf("%d ", all_possible_moves[i]);
     }
+    printf("\n+++++++++++++++++++++++\n");
 }
 
 bool isMoveValid(int targetPos) {
