@@ -1,0 +1,6 @@
+#!/bin/sh
+set -xe
+
+cd raylib
+cmake .
+make
