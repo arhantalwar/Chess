@@ -7,24 +7,26 @@
 #include "rook.c"
 #include "bishop.c"
 #include "knight.c"
+#include "queen.c"
+#include "king.c"
 
 #define width 480
 #define height 480
 #define sqSize 60
 
-static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"; // FOR FEN
-//static char *pos = "//4B"; // FOR FEN
+//static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+static char *pos = "/k/4Bb/5Qq/2Nn/4Rr/K";
+
 static int piece_info = 0;
 static int all_possible_moves[32] = { 0 };
 
 void show() {
-	printf("all_possible_moves: \n");
+    printf("+++++++++++++++++++++++\n");
     for(int i = 0; i < 32; i++) {
-		if(all_possible_moves[i]!=-1) {
-			printf("%d ", all_possible_moves[i]);
-		}
+        if(all_possible_moves[i] != -1)
+            printf("%d ", all_possible_moves[i]);
     }
-	printf("\n---------------------------\n");
+    printf("\n+++++++++++++++++++++++\n");
 }
 
 bool isMoveValid(int targetPos) {
@@ -294,25 +296,51 @@ int main(void) {
 
                     case (White | Rook):
                         validateRook(all_possible_moves, mouseY, mouseX);
-                        sortList();
-                        removeDupFromList();
-                        sortList();
                         show();
                         break;
 
                     case (White | Bishop):
                         validateBishop(all_possible_moves, mouseY, mouseX);
-                        sortList();
-                        removeDupFromList();
-                        sortList();
                         show();
                         break;
 
                     case (White | Knight):
                         validateKnight(all_possible_moves, mouseY, mouseX);
-                        sortList();
-                        removeDupFromList();
-                        sortList();
+                        show();
+                        break;
+
+                    case (White | Queen):
+                        validateQueen(all_possible_moves, mouseY, mouseX);
+                        show();
+                        break;
+
+                    case (White | King):
+                        validateKing(all_possible_moves, mouseY, mouseX);
+                        show();
+                        break;
+
+                    case (Black | Rook):
+                        validateRook(all_possible_moves, mouseY, mouseX);
+                        show();
+                        break;
+
+                    case (Black | Bishop):
+                        validateBishop(all_possible_moves, mouseY, mouseX);
+                        show();
+                        break;
+
+                    case (Black | Knight):
+                        validateKnight(all_possible_moves, mouseY, mouseX);
+                        show();
+                        break;
+
+                    case (Black | Queen):
+                        validateQueen(all_possible_moves, mouseY, mouseX);
+                        show();
+                        break;
+
+                    case (Black | King):
+                        validateKing(all_possible_moves, mouseY, mouseX);
                         show();
                         break;
 
