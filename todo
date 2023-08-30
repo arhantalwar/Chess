@@ -1,4 +1,10 @@
 [X] Implement FEN
 [X] Add movement to pieces
 [ ] Validate movements
+    [X] Rook
+    [X] Bishop
+    [ ] Queen
+    [X] Knight
+    [ ] Pawn
+    [ ] King
 [ ] dance to timber

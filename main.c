@@ -1,15 +1,62 @@
 #include <ctype.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <raylib.h>
 #include <stdlib.h>
 #include <string.h>
+#include "rook.c"
+#include "bishop.c"
+#include "knight.c"
 
 #define width 480
 #define height 480
 #define sqSize 60
 
 static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"; // FOR FEN
+//static char *pos = "//4B"; // FOR FEN
 static int piece_info = 0;
+static int all_possible_moves[32] = { 0 };
+
+void show() {
+	printf("all_possible_moves: \n");
+    for(int i = 0; i < 32; i++) {
+		if(all_possible_moves[i]!=-1) {
+			printf("%d ", all_possible_moves[i]);
+		}
+    }
+	printf("\n---------------------------\n");
+}
+
+bool isMoveValid(int targetPos) {
+    for(int i = 0; i < 32; i++) {
+        if(all_possible_moves[i] == targetPos) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void sortList() {
+    for(int i = 0; i < 32; i++) {
+        for(int i = 0; i < 32; i++) {
+            if(all_possible_moves[i] > all_possible_moves[i + 1]) {
+                int temp = all_possible_moves[i];
+                all_possible_moves[i] = all_possible_moves[i + 1];
+                all_possible_moves[i + 1] = temp;
+            }
+        }
+    }
+}
+
+void removeDupFromList() {
+    for(int i = 0; i < 32; i++) {
+        for(int i = 0; i < 32; i++) {
+            if(all_possible_moves[i] == all_possible_moves[i + 1]) {
+                all_possible_moves[i] = -1;
+            }
+        }
+    }
+}
 
 enum piece { 
     None = 0, 
@@ -236,13 +283,43 @@ int main(void) {
 
         int mouseX = GetMouseX() / sqSize;
         int mouseY = GetMouseY() / sqSize;
-        int mouseOnBoard = mouseY * 8 + mouseX;
+        int mouseOnBoard = 8 * mouseY + mouseX;
 
         if(IsMouseButtonPressed(0)) {
             if(squareBoard[mouseOnBoard] != 0 && piece_info == 0) {
                 piece_info = squareBoard[mouseOnBoard];
                 squareBoard[mouseOnBoard] = 0;
+
+                switch (piece_info) {
+
+                    case (White | Rook):
+                        validateRook(all_possible_moves, mouseY, mouseX);
+                        sortList();
+                        removeDupFromList();
+                        sortList();
+                        show();
+                        break;
+
+                    case (White | Bishop):
+                        validateBishop(all_possible_moves, mouseY, mouseX);
+                        sortList();
+                        removeDupFromList();
+                        sortList();
+                        show();
+                        break;
+
+                    case (White | Knight):
+                        validateKnight(all_possible_moves, mouseY, mouseX);
+                        sortList();
+                        removeDupFromList();
+                        sortList();
+                        show();
+                        break;
+
+                }
+
             } else {
+
                 squareBoard[mouseOnBoard] = 0;
                 updateChessBoard(
                         squareBoard,
@@ -275,7 +352,9 @@ int main(void) {
                         black_bishop,
                         black_rook
                         );
+
                 piece_info = 0;
+
             }
         }
 
