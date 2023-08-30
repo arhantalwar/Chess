@@ -1,6 +1,8 @@
 #!/bin/sh
 set -xe
 
+ls
 cd ./raylib
+ls
 cmake ./
 make
