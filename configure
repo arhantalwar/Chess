@@ -1,6 +1,6 @@
 #!/bin/sh
 set -xe
 
-cd raylib
-cmake .
+cd ./raylib
+cmake ./
 make
