@@ -8,13 +8,14 @@
 #include "bishop.c"
 #include "knight.c"
 #include "queen.c"
+#include "king.c"
 
 #define width 480
 #define height 480
 #define sqSize 60
 
 //static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-static char *pos = "//4B/5Q/2N/4R";
+static char *pos = "/k/4Bb/5Qq/2Nn/4Rr/K";
 
 static int piece_info = 0;
 static int all_possible_moves[32] = { 0 };
@@ -310,6 +311,36 @@ int main(void) {
 
                     case (White | Queen):
                         validateQueen(all_possible_moves, mouseY, mouseX);
+                        show();
+                        break;
+
+                    case (White | King):
+                        validateKing(all_possible_moves, mouseY, mouseX);
+                        show();
+                        break;
+
+                    case (Black | Rook):
+                        validateRook(all_possible_moves, mouseY, mouseX);
+                        show();
+                        break;
+
+                    case (Black | Bishop):
+                        validateBishop(all_possible_moves, mouseY, mouseX);
+                        show();
+                        break;
+
+                    case (Black | Knight):
+                        validateKnight(all_possible_moves, mouseY, mouseX);
+                        show();
+                        break;
+
+                    case (Black | Queen):
+                        validateQueen(all_possible_moves, mouseY, mouseX);
+                        show();
+                        break;
+
+                    case (Black | King):
+                        validateKing(all_possible_moves, mouseY, mouseX);
                         show();
                         break;
 
