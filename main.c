@@ -18,9 +18,13 @@ static int piece_info = 0;
 static int all_possible_moves[32] = { 0 };
 
 void show() {
+	printf("all_possible_moves: \n");
     for(int i = 0; i < 32; i++) {
-        printf("%d ", all_possible_moves[i]);
+		if(all_possible_moves[i]!=-1) {
+			printf("%d ", all_possible_moves[i]);
+		}
     }
+	printf("\n---------------------------\n");
 }
 
 bool isMoveValid(int targetPos) {
@@ -290,6 +294,10 @@ int main(void) {
 
                     case (White | Rook):
                         validateRook(all_possible_moves, mouseY, mouseX);
+                        sortList();
+                        removeDupFromList();
+                        sortList();
+                        show();
                         break;
 
                     case (White | Bishop):
@@ -302,6 +310,10 @@ int main(void) {
 
                     case (White | Knight):
                         validateKnight(all_possible_moves, mouseY, mouseX);
+                        sortList();
+                        removeDupFromList();
+                        sortList();
+                        show();
                         break;
 
                 }
