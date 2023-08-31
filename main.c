@@ -1,7 +1,7 @@
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdio.h>
-#include "raylib.h"
+#include "./raylib/src/raylib.h"
 #include <stdlib.h>
 #include <string.h>
 #include "rook.c"
