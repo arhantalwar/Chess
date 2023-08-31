@@ -1,5 +1,6 @@
 #include <ctype.h>
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdio.h>
 #include "./raylib/src/raylib.h"
 #include <stdlib.h>
@@ -20,7 +21,7 @@ static char *pos = "/k/4Bb/5Qq/2Nn/4Rr/K";
 static int piece_info = 0;
 static int all_possible_moves[32] = { 0 };
 
-void show() {
+void show(void) {
     printf("+++++++++++++++++++++++\n");
     for(int i = 0; i < 32; i++) {
         if(all_possible_moves[i] != -1)
@@ -38,7 +39,7 @@ bool isMoveValid(int targetPos) {
     return false;
 }
 
-void sortList() {
+void sortList(void) {
     for(int i = 0; i < 32; i++) {
         for(int i = 0; i < 32; i++) {
             if(all_possible_moves[i] > all_possible_moves[i + 1]) {
@@ -50,7 +51,7 @@ void sortList() {
     }
 }
 
-void removeDupFromList() {
+void removeDupFromList(void) {
     for(int i = 0; i < 32; i++) {
         for(int i = 0; i < 32; i++) {
             if(all_possible_moves[i] == all_possible_moves[i + 1]) {
@@ -85,7 +86,7 @@ void initChessBoard(int *squareBoard) {
     int file = 0;
     int rank = 0;
 
-    for(int i = 0; i < strlen(pos); i++) {
+    for(size_t i = 0; i < strlen(pos); i++) {
 
         char *c = &pos[i];
 
