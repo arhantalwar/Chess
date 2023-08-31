@@ -9,13 +9,14 @@
 #include "knight.c"
 #include "queen.c"
 #include "king.c"
+#include "pawn.c"
 
 #define width 480
 #define height 480
 #define sqSize 60
 
-//static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-static char *pos = "/k/4Bb/5Qq/2Nn/4Rr/K";
+static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+//static char *pos = "/k/4Bb/5Qq/2Nn/4Rr/K";
 
 static int piece_info = 0;
 static int all_possible_moves[32] = { 0 };
@@ -237,6 +238,8 @@ void updateChessBoard(
 
 int main(void) {
 
+    SetTraceLogLevel(LOG_WARNING);
+
     InitWindow(width, height, "CHESS BOARD");
     SetTargetFPS(60);
 
@@ -294,6 +297,11 @@ int main(void) {
 
                 switch (piece_info) {
 
+                    case (White | Pawn):
+                        validateWhitePawn(all_possible_moves, mouseY, mouseX);
+                        show();
+                        break;
+
                     case (White | Rook):
                         validateRook(all_possible_moves, mouseY, mouseX);
                         show();
@@ -316,6 +324,11 @@ int main(void) {
 
                     case (White | King):
                         validateKing(all_possible_moves, mouseY, mouseX);
+                        show();
+                        break;
+
+                    case (Black | Pawn):
+                        validateBlackPawn(all_possible_moves, mouseY, mouseX);
                         show();
                         break;
 
