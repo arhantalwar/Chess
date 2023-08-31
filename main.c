@@ -236,7 +236,8 @@ void updateChessBoard(
 }
 
 int main(void) {
-
+	
+	SetTraceLogLevel(LOG_WARNING);
     InitWindow(width, height, "CHESS BOARD");
     SetTargetFPS(60);
 
