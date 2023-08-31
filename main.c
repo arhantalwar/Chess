@@ -15,8 +15,8 @@
 #define height 480
 #define sqSize 60
 
-static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-//static char *pos = "/k/4Bb/5Qq/2Nn/4Rr/K";
+//static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+static char *pos = "///4NP";
 
 static int piece_info = 0;
 static int all_possible_moves[32] = { 0 };
@@ -28,6 +28,16 @@ void show() {
             printf("%d ", all_possible_moves[i]);
     }
     printf("\n+++++++++++++++++++++++\n");
+}
+
+void drawValidSquares() {
+    for(int i = 0; i < 32; i++) {
+        if(all_possible_moves[i] != -1) {
+            int rank = all_possible_moves[i] / 8;
+            int file = all_possible_moves[i] % 8;
+            DrawRectangle(file * sqSize, rank * sqSize, sqSize, sqSize, RED);
+        }
+    }
 }
 
 bool isMoveValid(int targetPos) {
@@ -263,7 +273,6 @@ int main(void) {
     int squareBoard[64] = { 0 };
 
     initChessBoard(squareBoard);
-
     updateChessBoard(
             squareBoard,
             white_pawn,
@@ -357,6 +366,8 @@ int main(void) {
                         break;
 
                 }
+
+                drawValidSquares();
 
             } else {
 
