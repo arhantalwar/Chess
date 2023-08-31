@@ -1,3 +1,3 @@
 #!/bin/sh
 
-gcc main.c -o main -lraylib
+clang main.c -o main -lraylib -Wall -Wextra -Wpedantic
