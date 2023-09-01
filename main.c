@@ -16,7 +16,7 @@
 #define sqSize 60
 
 //static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-static char *pos = "///4NP";
+static char *pos = "//3B";
 
 static int piece_info = 0;
 static int all_possible_moves[32] = { 0 };
@@ -30,7 +30,7 @@ void show() {
     printf("\n+++++++++++++++++++++++\n");
 }
 
-void drawValidSquares() {
+void drawAllPossibleSquares() {
     for(int i = 0; i < 32; i++) {
         if(all_possible_moves[i] != -1) {
             int rank = all_possible_moves[i] / 8;
@@ -51,11 +51,11 @@ bool isMoveValid(int targetPos) {
 
 void sortList() {
     for(int i = 0; i < 32; i++) {
-        for(int i = 0; i < 32; i++) {
-            if(all_possible_moves[i] > all_possible_moves[i + 1]) {
+        for(int j = 0; j < 32; j++) {
+            if(all_possible_moves[i] < all_possible_moves[j]) {
                 int temp = all_possible_moves[i];
-                all_possible_moves[i] = all_possible_moves[i + 1];
-                all_possible_moves[i + 1] = temp;
+                all_possible_moves[i] = all_possible_moves[j];
+                all_possible_moves[j] = temp;
             }
         }
     }
@@ -63,10 +63,8 @@ void sortList() {
 
 void removeDupFromList() {
     for(int i = 0; i < 32; i++) {
-        for(int i = 0; i < 32; i++) {
-            if(all_possible_moves[i] == all_possible_moves[i + 1]) {
-                all_possible_moves[i] = -1;
-            }
+        if(all_possible_moves[i] == all_possible_moves[i + 1]) {
+            all_possible_moves[i] = -1;
         }
     }
 }
@@ -307,67 +305,58 @@ int main(void) {
 
                     case (White | Pawn):
                         validateWhitePawn(all_possible_moves, mouseY, mouseX);
-                        show();
                         break;
 
                     case (White | Rook):
                         validateRook(all_possible_moves, mouseY, mouseX);
-                        show();
                         break;
 
                     case (White | Bishop):
                         validateBishop(all_possible_moves, mouseY, mouseX);
-                        show();
                         break;
 
                     case (White | Knight):
                         validateKnight(all_possible_moves, mouseY, mouseX);
-                        show();
                         break;
 
                     case (White | Queen):
                         validateQueen(all_possible_moves, mouseY, mouseX);
-                        show();
                         break;
 
                     case (White | King):
                         validateKing(all_possible_moves, mouseY, mouseX);
-                        show();
                         break;
 
                     case (Black | Pawn):
                         validateBlackPawn(all_possible_moves, mouseY, mouseX);
-                        show();
                         break;
 
                     case (Black | Rook):
                         validateRook(all_possible_moves, mouseY, mouseX);
-                        show();
                         break;
 
                     case (Black | Bishop):
                         validateBishop(all_possible_moves, mouseY, mouseX);
-                        show();
                         break;
 
                     case (Black | Knight):
                         validateKnight(all_possible_moves, mouseY, mouseX);
-                        show();
                         break;
 
                     case (Black | Queen):
                         validateQueen(all_possible_moves, mouseY, mouseX);
-                        show();
                         break;
 
                     case (Black | King):
                         validateKing(all_possible_moves, mouseY, mouseX);
-                        show();
                         break;
 
                 }
 
-                drawValidSquares();
+                sortList();
+                removeDupFromList();
+                show();
+                drawAllPossibleSquares();
 
             } else {
 
