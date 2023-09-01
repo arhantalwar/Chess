@@ -1,3 +1,5 @@
+NOW : 
+
 [X] Implement FEN
 [X] Add movement to pieces
 [X] Validate movements
@@ -8,5 +10,13 @@
     [X] Pawn
     [X] King
 [X] Track movements
-[ ] Is move valid
+[X] Is move valid
+[ ] Fix highlighting squares
 [ ] dance to timber
+
+LATER :
+
+[ ] En passant
+[ ] Castling (Long/Short)
+[ ] Check for check :)
+[ ] Checkmate
