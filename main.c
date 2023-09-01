@@ -15,10 +15,11 @@
 #define height 480
 #define sqSize 60
 
-//static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-static char *pos = "//3B";
+static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+//static char *pos = "//3B";
 
 static int piece_info = 0;
+static int pos_piece_info = -1;
 static int all_possible_moves[32] = { 0 };
 
 void show() {
@@ -299,6 +300,7 @@ int main(void) {
         if(IsMouseButtonPressed(0)) {
             if(squareBoard[mouseOnBoard] != 0 && piece_info == 0) {
                 piece_info = squareBoard[mouseOnBoard];
+                pos_piece_info = mouseOnBoard;
                 squareBoard[mouseOnBoard] = 0;
 
                 switch (piece_info) {
@@ -360,40 +362,68 @@ int main(void) {
 
             } else {
 
-                squareBoard[mouseOnBoard] = 0;
-                updateChessBoard(
-                        squareBoard,
-                        white_pawn,
-                        white_knight,
-                        white_queen,
-                        white_king,
-                        white_bishop,
-                        white_rook,
-                        black_pawn,
-                        black_knight,
-                        black_queen,
-                        black_king,
-                        black_bishop,
-                        black_rook
-                        );
-                squareBoard[mouseOnBoard] = piece_info;
-                updateChessBoard(
-                        squareBoard,
-                        white_pawn,
-                        white_knight,
-                        white_queen,
-                        white_king,
-                        white_bishop,
-                        white_rook,
-                        black_pawn,
-                        black_knight,
-                        black_queen,
-                        black_king,
-                        black_bishop,
-                        black_rook
-                        );
+                if(isMoveValid(mouseOnBoard)) {
+
+                    squareBoard[mouseOnBoard] = 0;
+
+                    updateChessBoard(
+                            squareBoard,
+                            white_pawn,
+                            white_knight,
+                            white_queen,
+                            white_king,
+                            white_bishop,
+                            white_rook,
+                            black_pawn,
+                            black_knight,
+                            black_queen,
+                            black_king,
+                            black_bishop,
+                            black_rook
+                            );
+
+                    squareBoard[mouseOnBoard] = piece_info;
+
+                    updateChessBoard(
+                            squareBoard,
+                            white_pawn,
+                            white_knight,
+                            white_queen,
+                            white_king,
+                            white_bishop,
+                            white_rook,
+                            black_pawn,
+                            black_knight,
+                            black_queen,
+                            black_king,
+                            black_bishop,
+                            black_rook
+                            );
+
+                } else {
+
+                    squareBoard[pos_piece_info] = piece_info;
+
+                    updateChessBoard(
+                            squareBoard,
+                            white_pawn,
+                            white_knight,
+                            white_queen,
+                            white_king,
+                            white_bishop,
+                            white_rook,
+                            black_pawn,
+                            black_knight,
+                            black_queen,
+                            black_king,
+                            black_bishop,
+                            black_rook
+                            );
+
+                }
 
                 piece_info = 0;
+                pos_piece_info = -1;
 
             }
         }
