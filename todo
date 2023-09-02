@@ -11,7 +11,8 @@ NOW :
     [X] King
 [X] Track movements
 [X] Is move valid
-[ ] Fix highlighting squares
+[X] Fix highlighting squares
+[ ] Double pawn move (White/Black)
 [ ] dance to timber
 
 LATER :
