@@ -16,11 +16,45 @@
 #define sqSize 60
 
 static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-//static char *pos = "//3B";
+//static char *pos = "//3B//PPPPPPPP/";
+
+enum piece { 
+    None = 0, 
+    King = 1, 
+    Pawn = 2, 
+    Knight = 3, 
+    Bishop = 4, 
+    Rook = 5, 
+    Queen = 6, 
+    White = 8, 
+    Black = 16,
+};
 
 static int piece_info = 0;
 static int pos_piece_info = -1;
 static int all_possible_moves[32] = { 0 };
+
+void drawChessBoard() {
+    for(int file = 0; file < 8; file++) {
+        for(int rank = 0; rank < 8; rank++) {
+            bool isLightSquared = (file + rank) % 2 != 0;
+            Color color = isLightSquared ? DARKPURPLE : WHITE;
+            DrawRectangle(file * sqSize, rank * sqSize, sqSize, sqSize, color);
+        }
+    }
+}
+
+void fixHighlightedSquares() {
+    for(int i = 0; i < 32; i++) {
+        if(all_possible_moves[i] != -1) {
+            int rank = all_possible_moves[i] / 8;
+            int file = all_possible_moves[i] % 8;
+            bool isLightSquared = (file + rank) % 2 != 0;
+            Color color = isLightSquared ? DARKPURPLE : WHITE;
+            DrawRectangle(file * sqSize, rank * sqSize, sqSize, sqSize, color);
+        }
+    }
+}
 
 void show() {
     printf("+++++++++++++++++++++++\n");
@@ -69,18 +103,6 @@ void removeDupFromList() {
         }
     }
 }
-
-enum piece { 
-    None = 0, 
-    King = 1, 
-    Pawn = 2, 
-    Knight = 3, 
-    Bishop = 4, 
-    Rook = 5, 
-    Queen = 6, 
-    White = 8, 
-    Black = 16,
-};
 
 void initChessBoard(int *squareBoard) {
 
@@ -400,9 +422,29 @@ int main(void) {
                             black_rook
                             );
 
+                    fixHighlightedSquares();
+                    
+                    updateChessBoard(
+                            squareBoard,
+                            white_pawn,
+                            white_knight,
+                            white_queen,
+                            white_king,
+                            white_bishop,
+                            white_rook,
+                            black_pawn,
+                            black_knight,
+                            black_queen,
+                            black_king,
+                            black_bishop,
+                            black_rook
+                            );
+
                 } else {
 
                     squareBoard[pos_piece_info] = piece_info;
+
+                    fixHighlightedSquares();
 
                     updateChessBoard(
                             squareBoard,
