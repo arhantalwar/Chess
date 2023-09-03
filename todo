@@ -13,11 +13,12 @@ NOW :
 [X] Is move valid
 [X] Fix highlighting squares
 [X] Double pawn move (White/Black)
-[ ] Castling (Long/Short)
+[ ] Check for pieces in between
+[ ] Check for check :)
 [ ] dance to timber
 
 LATER :
 
 [ ] En passant
-[ ] Check for check :)
+[ ] Castling (Long/Short)
 [ ] Checkmate

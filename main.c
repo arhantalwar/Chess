@@ -15,8 +15,9 @@
 #define height 480
 #define sqSize 60
 
-static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-//static char *pos = "//3B//PPPPPPPP/";
+
+//static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+static char *pos = "r3k2r///////R3K2R"; // Castling
 
 enum piece { 
     None = 0, 
@@ -70,7 +71,7 @@ void drawAllPossibleSquares() {
         if(all_possible_moves[i] != -1) {
             int rank = all_possible_moves[i] / 8;
             int file = all_possible_moves[i] % 8;
-            DrawRectangle(file * sqSize, rank * sqSize, sqSize, sqSize, RED);
+            DrawRectangle(file * sqSize, rank * sqSize, sqSize, sqSize, ColorAlpha(RED, 0.6));
         }
     }
 }
