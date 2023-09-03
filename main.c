@@ -389,6 +389,7 @@ int main(void) {
 
                 sortList();
                 removeDupFromList();
+                sortList();
                 show();
                 drawAllPossibleSquares();
 
