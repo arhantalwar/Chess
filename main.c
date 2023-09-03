@@ -76,9 +76,18 @@ void drawAllPossibleSquares() {
 }
 
 bool isMoveValid(int targetPos) {
-    for(int i = 0; i < 32; i++) {
-        if(all_possible_moves[i] == targetPos) {
+    int first=0;
+    int last=31;
+    while(first<=last){
+        int mid=(first+last)/2;
+        if(targetPos==all_possible_moves[mid]){
             return true;
+        }
+        else if(all_possible_moves[mid]>targetPos){
+            last = mid-1;
+        }
+        else{
+            first=mid+1;
         }
     }
     return false;
