@@ -57,7 +57,7 @@ int* validateQueen(int* all_possible_moves, int rank, int file) {
         q_elem_in++;
     }
 
-    for(int i = q_elem_in; i < 32; i++) {
+    for(int i = q_elem_in; i < 40; i++) {
         all_possible_moves[i] = -1;
     }
 

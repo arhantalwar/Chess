@@ -47,7 +47,7 @@ int* validateBishop(int* all_possible_moves, int rank, int file) {
     SE(all_possible_moves, rank, file);
     NE(all_possible_moves, rank, file);
 
-    for(int i = b_elem_in; i < 32; i++) {
+    for(int i = b_elem_in; i < 40; i++) {
         all_possible_moves[i] = -1;
     }
 

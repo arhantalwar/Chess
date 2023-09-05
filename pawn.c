@@ -18,7 +18,7 @@ int* validateWhitePawn(int* all_possible_moves, int rank, int file) {
         p_elem_in++;
     }
 
-    for(int i = p_elem_in; i < 32; i++) {
+    for(int i = p_elem_in; i < 40; i++) {
         all_possible_moves[i] = -1;
     }
 
@@ -48,7 +48,7 @@ int* validateBlackPawn(int* all_possible_moves, int rank, int file) {
         p_elem_in++;
     }
 
-    for(int i = p_elem_in; i < 32; i++) {
+    for(int i = p_elem_in; i < 40; i++) {
         all_possible_moves[i] = -1;
     }
 

@@ -14,9 +14,10 @@
 #define width 480
 #define height 480
 #define sqSize 60
+#define all_possible_moves_len 40
 
 //static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-static char *pos = "///3B//3PPPPP"; // Castling
+static char *pos = "///3BQ//3PPPPP";
 
 enum piece { 
     None = 0, 
@@ -32,7 +33,7 @@ enum piece {
 
 static int piece_info = 0;
 static int pos_piece_info = -1;
-static int all_possible_moves[32] = { 0 };
+static int all_possible_moves[all_possible_moves_len] = { 0 };
 
 void drawChessBoard() {
     for(int file = 0; file < 8; file++) {
@@ -45,7 +46,7 @@ void drawChessBoard() {
 }
 
 void fixHighlightedSquares() {
-    for(int i = 0; i < 32; i++) {
+    for(int i = 0; i < all_possible_moves_len; i++) {
         if(all_possible_moves[i] != -1) {
             int rank = all_possible_moves[i] / 8;
             int file = all_possible_moves[i] % 8;
@@ -58,7 +59,7 @@ void fixHighlightedSquares() {
 
 void show() {
     printf("+++++++++++++++++++++++\n");
-    for(int i = 0; i < 32; i++) {
+    for(int i = 0; i < all_possible_moves_len; i++) {
         if(all_possible_moves[i] != -1)
             printf("%d ", all_possible_moves[i]);
     }
@@ -66,7 +67,7 @@ void show() {
 }
 
 void drawAllPossibleSquares() {
-    for(int i = 0; i < 32; i++) {
+    for(int i = 0; i < all_possible_moves_len; i++) {
         if(all_possible_moves[i] != -1) {
             int rank = all_possible_moves[i] / 8;
             int file = all_possible_moves[i] % 8;
@@ -143,7 +144,7 @@ bool diagonalPiecesValidMoveCheck(int targetPos, int* squareBoard) {
 bool isMoveInPossible(int targetPos) {
 
     int first = 0;
-    int last = 31;
+    int last = all_possible_moves_len - 1;
 
     while(first <= last){
 
@@ -166,8 +167,8 @@ bool isMoveInPossible(int targetPos) {
 }
 
 void sortList() {
-    for(int i = 0; i < 32; i++) {
-        for(int j = 0; j < 32; j++) {
+    for(int i = 0; i < all_possible_moves_len; i++) {
+        for(int j = 0; j < all_possible_moves_len; j++) {
             if(all_possible_moves[i] < all_possible_moves[j]) {
                 int temp = all_possible_moves[i];
                 all_possible_moves[i] = all_possible_moves[j];
@@ -178,7 +179,7 @@ void sortList() {
 }
 
 void removeDupFromList() {
-    for(int i = 0; i < 32; i++) {
+    for(int i = 0; i < all_possible_moves_len; i++) {
         if(all_possible_moves[i] == all_possible_moves[i + 1]) {
             all_possible_moves[i] = -1;
         }
@@ -467,8 +468,6 @@ int main(void) {
             } else {
 
                 if(isMoveInPossible(mouseOnBoard)) {
-
-                    diagonalPiecesValidMoveCheck(mouseOnBoard, squareBoard);
 
                     squareBoard[mouseOnBoard] = 0;
 

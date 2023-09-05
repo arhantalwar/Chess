@@ -13,7 +13,7 @@ int* validateKing(int* all_possible_moves, int rank, int file) {
         }
     }
 
-    for(int i = k_elem_in; i < 32; i++) {
+    for(int i = k_elem_in; i < 40; i++) {
         all_possible_moves[i] = -1;
     }
 
