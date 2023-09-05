@@ -15,9 +15,8 @@
 #define height 480
 #define sqSize 60
 
-
 //static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-static char *pos = "r3k2r///////R3K2R"; // Castling
+static char *pos = "///3B//3PPPPP"; // Castling
 
 enum piece { 
     None = 0, 
@@ -76,22 +75,94 @@ void drawAllPossibleSquares() {
     }
 }
 
-bool isMoveValid(int targetPos) {
-    int first=0;
-    int last=31;
-    while(first<=last){
-        int mid=(first+last)/2;
-        if(targetPos==all_possible_moves[mid]){
-            return true;
+int whereIsTarget(int targetPos) {
+    
+    int tRank = targetPos / 8;
+    int tFile = targetPos % 8;
+
+    int sRank = pos_piece_info / 8;
+    int sFile = pos_piece_info % 8;
+
+    if(tFile < sFile) {
+
+        if(tRank < sRank) {
+            return  1;
         }
-        else if(all_possible_moves[mid]>targetPos){
-            last = mid-1;
+
+        if(tRank > sRank) {
+            return  3;
         }
-        else{
-            first=mid+1;
+
+    } else {
+
+        if(tRank < sRank) {
+            return  2;
         }
+
+        if(tRank > sRank) {
+            return  4;
+        }
+
     }
+
+    return 0;
+
+}
+
+bool diagonalPiecesValidMoveCheck(int targetPos, int* squareBoard) {
+    
+    int whereTo = whereIsTarget(targetPos);
+    int pos_piece_info_copy = pos_piece_info;
+
+    while(pos_piece_info_copy != targetPos) {
+
+        if(whereTo == 1) {
+            pos_piece_info_copy -= 9;
+
+        } else if (whereTo == 2) {
+            pos_piece_info_copy -= 7;
+
+        } else if (whereTo == 3) {
+            pos_piece_info_copy += 7;
+
+        } else if (whereTo == 4) {
+            pos_piece_info_copy += 9;
+
+        }
+
+        if(squareBoard[pos_piece_info_copy] == (White | Pawn)) {
+            return false;
+        }
+
+    }
+
+    return true;
+
+}
+
+bool isMoveInPossible(int targetPos) {
+
+    int first = 0;
+    int last = 31;
+
+    while(first <= last){
+
+        int mid = (first + last) / 2;
+
+        if(targetPos == all_possible_moves[mid]){
+
+            return true;
+
+        } else if(all_possible_moves[mid] > targetPos){
+            last = mid - 1;
+        } else{
+            first = mid + 1;
+        }
+
+    }
+
     return false;
+
 }
 
 void sortList() {
@@ -395,7 +466,9 @@ int main(void) {
 
             } else {
 
-                if(isMoveValid(mouseOnBoard)) {
+                if(isMoveInPossible(mouseOnBoard)) {
+
+                    diagonalPiecesValidMoveCheck(mouseOnBoard, squareBoard);
 
                     squareBoard[mouseOnBoard] = 0;
 
