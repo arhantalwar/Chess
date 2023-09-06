@@ -16,8 +16,8 @@
 #define sqSize 60
 #define all_possible_moves_len 40
 
-//static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-static char *pos = "/ppp///3BQ//3pppp";
+static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+//static char *pos = "/ppp///3BQ//3pppp";
 
 enum piece { 
     None = 0, 
@@ -553,6 +553,18 @@ int main(void) {
                             }
                             break;
 
+                        case (White | Pawn):
+                            canGoThrought = true;
+                            break;
+
+                        case (White | King):
+                            canGoThrought = true;
+                            break;
+
+                        case (White | Knight):
+                            canGoThrought = true;
+                            break;
+
                         case (Black | Rook):
                             if(straightPiecesValidMoveCheck(mouseOnBoard, squareBoard)) {
                                 canGoThrought = true;
@@ -569,6 +581,18 @@ int main(void) {
                             if(straightPiecesValidMoveCheck(mouseOnBoard, squareBoard) || diagonalPiecesValidMoveCheck(mouseOnBoard, squareBoard)) {
                                 canGoThrought = true;
                             }
+                            break;
+                            
+                        case (Black | Pawn):
+                            canGoThrought = true;
+                            break;
+                            
+                        case (Black | Knight):
+                            canGoThrought = true;
+                            break;
+                            
+                        case (Black | King):
+                            canGoThrought = true;
                             break;
 
                     }
