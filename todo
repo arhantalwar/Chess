@@ -13,7 +13,7 @@ NOW :
 [X] Is move valid
 [X] Fix highlighting squares
 [X] Double pawn move (White/Black)
-[ ] Check for pieces in between
+[X] Check for pieces in between
 [ ] Check for check :)
 [ ] dance to timber
 

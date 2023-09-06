@@ -17,7 +17,7 @@
 #define all_possible_moves_len 40
 
 //static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-static char *pos = "///3BQ//3PPPPP";
+static char *pos = "/ppp///3BQ//3pppp";
 
 enum piece { 
     None = 0, 
@@ -76,7 +76,7 @@ void drawAllPossibleSquares() {
     }
 }
 
-int whereIsTarget(int targetPos) {
+int whereIsTargetOnDiagonal(int targetPos) {
     
     int tRank = targetPos / 8;
     int tFile = targetPos % 8;
@@ -112,7 +112,7 @@ int whereIsTarget(int targetPos) {
 
 bool diagonalPiecesValidMoveCheck(int targetPos, int* squareBoard) {
     
-    int whereTo = whereIsTarget(targetPos);
+    int whereTo = whereIsTargetOnDiagonal(targetPos);
     int pos_piece_info_copy = pos_piece_info;
 
     while(pos_piece_info_copy != targetPos) {
@@ -131,7 +131,68 @@ bool diagonalPiecesValidMoveCheck(int targetPos, int* squareBoard) {
 
         }
 
-        if(squareBoard[pos_piece_info_copy] == (White | Pawn)) {
+        if(squareBoard[pos_piece_info_copy] != 0) {
+            printf("PIECE IN THE WAY\n");
+            return false;
+        }
+
+    }
+
+    return true;
+
+}
+
+int whereIsTargetOnStraightLine(int targetPos) {
+    
+    int tRank = targetPos / 8;
+    int tFile = targetPos % 8;
+
+    int sRank = pos_piece_info / 8;
+    int sFile = pos_piece_info % 8;
+
+    if(tFile < sFile) {
+        return 1;
+    }
+
+    if(tRank < sRank) {
+        return 2;
+    }
+
+    if(tFile > sFile) {
+        return 3;
+    }
+
+    if(tRank > sRank) {
+        return 4;
+    }
+
+    return 0;
+
+}
+
+bool straightPiecesValidMoveCheck(int targetPos, int* squareBoard) {
+    
+    int whereTo = whereIsTargetOnStraightLine(targetPos);
+    int pos_piece_info_copy = pos_piece_info;
+
+    while(pos_piece_info_copy != targetPos) {
+
+        if(whereTo == 1) {
+            pos_piece_info_copy -= 1;
+
+        } else if (whereTo == 2) {
+            pos_piece_info_copy -= 8;
+
+        } else if (whereTo == 3) {
+            pos_piece_info_copy += 1;
+
+        } else if (whereTo == 4) {
+            pos_piece_info_copy += 8;
+
+        }
+
+        if(squareBoard[pos_piece_info_copy] != 0) {
+            printf("PIECE IN THE WAY\n");
             return false;
         }
 
@@ -463,50 +524,117 @@ int main(void) {
                 removeDupFromList();
                 sortList();
                 show();
+
                 drawAllPossibleSquares();
 
             } else {
 
                 if(isMoveInPossible(mouseOnBoard)) {
 
-                    squareBoard[mouseOnBoard] = 0;
+                    bool canGoThrought = false;
 
-                    updateChessBoard(
-                            squareBoard,
-                            white_pawn,
-                            white_knight,
-                            white_queen,
-                            white_king,
-                            white_bishop,
-                            white_rook,
-                            black_pawn,
-                            black_knight,
-                            black_queen,
-                            black_king,
-                            black_bishop,
-                            black_rook
-                            );
+                    switch (piece_info) {
 
-                    squareBoard[mouseOnBoard] = piece_info;
+                        case (White | Rook):
+                            if(straightPiecesValidMoveCheck(mouseOnBoard, squareBoard) == true) {
+                                canGoThrought = true;
+                            }
+                            break;
 
-                    updateChessBoard(
-                            squareBoard,
-                            white_pawn,
-                            white_knight,
-                            white_queen,
-                            white_king,
-                            white_bishop,
-                            white_rook,
-                            black_pawn,
-                            black_knight,
-                            black_queen,
-                            black_king,
-                            black_bishop,
-                            black_rook
-                            );
+                        case (White | Bishop):
+                            if(diagonalPiecesValidMoveCheck(mouseOnBoard, squareBoard)) {
+                                canGoThrought = true;
+                            }
+                            break;
+
+                        case (White | Queen):
+                            if(straightPiecesValidMoveCheck(mouseOnBoard, squareBoard) || diagonalPiecesValidMoveCheck(mouseOnBoard, squareBoard)) {
+                                canGoThrought = true;
+                            }
+                            break;
+
+                        case (Black | Rook):
+                            if(straightPiecesValidMoveCheck(mouseOnBoard, squareBoard)) {
+                                canGoThrought = true;
+                            }
+                            break;
+
+                        case (Black | Bishop):
+                            if(diagonalPiecesValidMoveCheck(mouseOnBoard, squareBoard)) {
+                                canGoThrought = true;
+                            }
+                            break;
+
+                        case (Black | Queen):
+                            if(straightPiecesValidMoveCheck(mouseOnBoard, squareBoard) || diagonalPiecesValidMoveCheck(mouseOnBoard, squareBoard)) {
+                                canGoThrought = true;
+                            }
+                            break;
+
+                    }
+
+                    if(canGoThrought == true) {
+
+                        squareBoard[mouseOnBoard] = 0;
+
+                        updateChessBoard(
+                                squareBoard,
+                                white_pawn,
+                                white_knight,
+                                white_queen,
+                                white_king,
+                                white_bishop,
+                                white_rook,
+                                black_pawn,
+                                black_knight,
+                                black_queen,
+                                black_king,
+                                black_bishop,
+                                black_rook
+                                );
+
+                        squareBoard[mouseOnBoard] = piece_info;
+
+                        updateChessBoard(
+                                squareBoard,
+                                white_pawn,
+                                white_knight,
+                                white_queen,
+                                white_king,
+                                white_bishop,
+                                white_rook,
+                                black_pawn,
+                                black_knight,
+                                black_queen,
+                                black_king,
+                                black_bishop,
+                                black_rook
+                                );
+
+                        fixHighlightedSquares();
+
+                        updateChessBoard(
+                                squareBoard,
+                                white_pawn,
+                                white_knight,
+                                white_queen,
+                                white_king,
+                                white_bishop,
+                                white_rook,
+                                black_pawn,
+                                black_knight,
+                                black_queen,
+                                black_king,
+                                black_bishop,
+                                black_rook
+                                );
+
+                    } else {
+
+                    squareBoard[pos_piece_info] = piece_info;
 
                     fixHighlightedSquares();
-                    
+
                     updateChessBoard(
                             squareBoard,
                             white_pawn,
@@ -522,6 +650,8 @@ int main(void) {
                             black_bishop,
                             black_rook
                             );
+
+                    }
 
                 } else {
 
