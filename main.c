@@ -10,6 +10,7 @@
 #include "queen.c"
 #include "king.c"
 #include "pawn.c"
+// #include "sort.c"
 
 #define width 480
 #define height 480
@@ -228,13 +229,19 @@ bool isMoveInPossible(int targetPos) {
 }
 
 void sortList() {
-    for(int i = 0; i < all_possible_moves_len; i++) {
-        for(int j = 0; j < all_possible_moves_len; j++) {
-            if(all_possible_moves[i] < all_possible_moves[j]) {
-                int temp = all_possible_moves[i];
-                all_possible_moves[i] = all_possible_moves[j];
-                all_possible_moves[j] = temp;
+    bool swapped;
+    for(int i = 0; i < 31; i++) {
+        swapped = false;
+        for(int j = 0; j < 32-i-1; j++) {
+            if(all_possible_moves[j] > all_possible_moves[j+1]) {
+                int temp = all_possible_moves[j];
+                all_possible_moves[j] = all_possible_moves[j+1];
+                all_possible_moves[j+1] = temp;
+                swapped = true;
             }
+        }
+        if(swapped == false) {
+            break;
         }
     }
 }
@@ -522,7 +529,7 @@ int main(void) {
 
                 sortList();
                 removeDupFromList();
-                sortList();
+                // sortList();
                 show();
 
                 drawAllPossibleSquares();
