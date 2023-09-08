@@ -1,3 +1,23 @@
+#include <stdbool.h>
+
+bool isLeftCastlingPossible(int* squareBoard) {
+    for(int i = 57; i < 60; i++) {
+        if(squareBoard[i] != 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool isRightCastlingPossible(int* squareBoard) {
+    for(int i = 61; i < 63; i++) {
+        if(squareBoard[i] != 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
 int* validateKing(int* all_possible_moves, int rank, int file) {
 
     int k_elem_in = 0;
