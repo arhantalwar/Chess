@@ -11,6 +11,7 @@
 #include "queen.c"
 #include "king.c"
 #include "pawn.c"
+// #include "sort.c"
 
 #define width 480
 #define height 480
@@ -27,8 +28,8 @@ bool white_rook_left = true;
 bool white_rook_right = true;
 bool white_king_castling = true;
 
-//static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-static char *pos = "///////r2pk2r";
+static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+// static char *pos = "///////r2pk2r";
 
 enum piece { 
     None = 0, 
@@ -239,13 +240,19 @@ bool isMoveInPossible(int targetPos) {
 }
 
 void sortList() {
-    for(int i = 0; i < all_possible_moves_len; i++) {
-        for(int j = 0; j < all_possible_moves_len; j++) {
-            if(all_possible_moves[i] < all_possible_moves[j]) {
-                int temp = all_possible_moves[i];
-                all_possible_moves[i] = all_possible_moves[j];
-                all_possible_moves[j] = temp;
+    bool swapped=false;
+    for(int i = all_possible_moves_len-1; i >=1; i--) {
+        swapped = false;
+        for(int j = 0; j <= i-1; j++) {
+            if(all_possible_moves[j] > all_possible_moves[j+1]) {
+                int temp = all_possible_moves[j];
+                all_possible_moves[j] = all_possible_moves[j+1];
+                all_possible_moves[j+1] = temp;
+                swapped = true;
             }
+        }
+        if(swapped == false) {
+            break;
         }
     }
 }
