@@ -11,7 +11,6 @@
 #include "queen.c"
 #include "king.c"
 #include "pawn.c"
-// #include "sort.c"
 
 #define width 480
 #define height 480
