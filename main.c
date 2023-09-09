@@ -1,5 +1,6 @@
 #include <ctype.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <raylib.h>
 #include <stdlib.h>
@@ -17,8 +18,18 @@
 #define sqSize 60
 #define all_possible_moves_len 40
 
-static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-//static char *pos = "/ppp///3BQ//3pppp";
+// FOR CASTLING
+
+bool black_rook_left = true;
+bool black_rook_right = true;
+bool black_king_castling = true;
+
+bool white_rook_left = true;
+bool white_rook_right = true;
+bool white_king_castling = true;
+
+//static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+static char *pos = "///////r2pk2r";
 
 enum piece { 
     None = 0, 
@@ -523,6 +534,15 @@ int main(void) {
 
                     case (Black | King):
                         validateKing(all_possible_moves, mouseY, mouseX);
+
+                        if((isLeftCastlingPossible(squareBoard) && black_rook_left && black_king_castling) == true) {
+                            printf("LEFT CASTLING POSSIBLE\n");
+                        }
+
+                        if((isRightCastlingPossible(squareBoard) && black_rook_right && black_king_castling) == true) {
+                            printf("RIGHT CASTLING POSSIBLE\n");
+                        }
+
                         break;
 
                 }
@@ -555,7 +575,8 @@ int main(void) {
                             break;
 
                         case (White | Queen):
-                            if(straightPiecesValidMoveCheck(mouseOnBoard, squareBoard) || diagonalPiecesValidMoveCheck(mouseOnBoard, squareBoard)) {
+                            if(straightPiecesValidMoveCheck(mouseOnBoard, squareBoard)
+                            || diagonalPiecesValidMoveCheck(mouseOnBoard, squareBoard)) {
                                 canGoThrought = true;
                             }
                             break;
@@ -585,7 +606,8 @@ int main(void) {
                             break;
 
                         case (Black | Queen):
-                            if(straightPiecesValidMoveCheck(mouseOnBoard, squareBoard) || diagonalPiecesValidMoveCheck(mouseOnBoard, squareBoard)) {
+                            if(straightPiecesValidMoveCheck(mouseOnBoard, squareBoard)
+                            || diagonalPiecesValidMoveCheck(mouseOnBoard, squareBoard)) {
                                 canGoThrought = true;
                             }
                             break;
@@ -605,6 +627,27 @@ int main(void) {
                     }
 
                     if(canGoThrought == true) {
+
+                        // FOR BLACK LEFT ROOK CASTLING
+                        if(pos_piece_info == 56) {
+                            if(piece_info == 21) {
+                                black_rook_left = false;
+                            }
+                        }
+
+                        // FOR BLACK RIGHT ROOK CASTLING
+                        if(pos_piece_info == 63) {
+                            if(piece_info == 21) {
+                                black_rook_right = false;
+                            }
+                        }
+
+                        // FOR BLACK KING CASTLING
+                        if(pos_piece_info == 60) {
+                            if(piece_info == 17) {
+                                black_king_castling = false;
+                            }
+                        }
 
                         squareBoard[mouseOnBoard] = 0;
 
