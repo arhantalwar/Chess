@@ -14,6 +14,7 @@ NOW :
 [X] Fix highlighting squares
 [X] Double pawn move (White/Black)
 [X] Check for pieces in between
+[X] Rook and Bishop can't capture pieces of same color
 [ ] Check for check :)
 [ ] dance to timber
 

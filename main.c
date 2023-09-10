@@ -28,7 +28,7 @@ bool white_rook_right = true;
 bool white_king_castling = true;
 
 static char *pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-// static char *pos = "///////r2pk2r";
+//static char *pos = "///////r2pk2r"; // CASTLING
 
 enum piece { 
     None = 0, 
@@ -142,6 +142,17 @@ bool diagonalPiecesValidMoveCheck(int targetPos, int* squareBoard) {
 
         }
 
+        if(pos_piece_info_copy == targetPos) {
+
+            int a = squareBoard[pos_piece_info_copy] >> 3;
+            int b = piece_info >> 3;
+
+            if((a ^ b) == 3) {
+                return true;
+            }
+
+        }
+
         if(squareBoard[pos_piece_info_copy] != 0) {
             printf("PIECE IN THE WAY\n");
             return false;
@@ -202,6 +213,17 @@ bool straightPiecesValidMoveCheck(int targetPos, int* squareBoard) {
 
         }
 
+        if(pos_piece_info_copy == targetPos) {
+
+            int a = squareBoard[pos_piece_info_copy] >> 3;
+            int b = piece_info >> 3;
+
+            if((a ^ b) == 3) {
+                return true;
+            }
+
+        }
+        
         if(squareBoard[pos_piece_info_copy] != 0) {
             printf("PIECE IN THE WAY\n");
             return false;
@@ -574,8 +596,7 @@ int main(void) {
                             break;
 
                         case (White | Queen):
-                            if(straightPiecesValidMoveCheck(mouseOnBoard, squareBoard)
-                            || diagonalPiecesValidMoveCheck(mouseOnBoard, squareBoard)) {
+                            if(diagonalPiecesValidMoveCheck(mouseOnBoard, squareBoard)) {
                                 canGoThrought = true;
                             }
                             break;
@@ -627,26 +648,26 @@ int main(void) {
 
                     if(canGoThrought == true) {
 
-                        // FOR BLACK LEFT ROOK CASTLING
-                        if(pos_piece_info == 56) {
-                            if(piece_info == 21) {
-                                black_rook_left = false;
-                            }
-                        }
+                        //// FOR BLACK LEFT ROOK CASTLING
+                        //if(pos_piece_info == 56) {
+                        //    if(piece_info == 21) {
+                        //        black_rook_left = false;
+                        //    }
+                        //}
 
-                        // FOR BLACK RIGHT ROOK CASTLING
-                        if(pos_piece_info == 63) {
-                            if(piece_info == 21) {
-                                black_rook_right = false;
-                            }
-                        }
+                        //// FOR BLACK RIGHT ROOK CASTLING
+                        //if(pos_piece_info == 63) {
+                        //    if(piece_info == 21) {
+                        //        black_rook_right = false;
+                        //    }
+                        //}
 
-                        // FOR BLACK KING CASTLING
-                        if(pos_piece_info == 60) {
-                            if(piece_info == 17) {
-                                black_king_castling = false;
-                            }
-                        }
+                        //// FOR BLACK KING CASTLING
+                        //if(pos_piece_info == 60) {
+                        //    if(piece_info == 17) {
+                        //        black_king_castling = false;
+                        //    }
+                        //}
 
                         squareBoard[mouseOnBoard] = 0;
 
