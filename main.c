@@ -87,6 +87,8 @@ void drawAllPossibleSquares() {
     }
 }
 
+//------------------------ BISHOP 
+
 int whereIsTargetOnDiagonal(int targetPos) {
     
     int tRank = targetPos / 8;
@@ -164,6 +166,8 @@ bool diagonalPiecesValidMoveCheck(int targetPos, int* squareBoard) {
 
 }
 
+// ----------------------------------- ROOK
+
 int whereIsTargetOnStraightLine(int targetPos) {
     
     int tRank = targetPos / 8;
@@ -232,6 +236,44 @@ bool straightPiecesValidMoveCheck(int targetPos, int* squareBoard) {
     }
 
     return true;
+
+}
+
+// ----------------------------------- KNIGHT
+
+bool knightPiecesValidMoveCheck(int targetPos, int* squareBoard) {
+
+    if(squareBoard[targetPos] == 0) {
+        return true;
+    }
+
+    int a = squareBoard[targetPos] >> 3;
+    int b = piece_info >> 3;
+
+    if((a ^ b) == 3) {
+        return true;
+    }
+
+    return false;
+
+}
+    
+// ----------------------------------- KNIGHT
+
+bool kingPiecesValidMoveCheck(int targetPos, int* squareBoard) {
+
+    if(squareBoard[targetPos] == 0) {
+        return true;
+    }
+
+    int a = squareBoard[targetPos] >> 3;
+    int b = piece_info >> 3;
+
+    if((a ^ b) == 3) {
+        return true;
+    }
+
+    return false;
 
 }
 
@@ -606,11 +648,15 @@ int main(void) {
                             break;
 
                         case (White | King):
-                            canGoThrought = true;
+                            if(kingPiecesValidMoveCheck(mouseOnBoard, squareBoard)) {
+                                canGoThrought = true;
+                            }
                             break;
 
                         case (White | Knight):
-                            canGoThrought = true;
+                            if(knightPiecesValidMoveCheck(mouseOnBoard, squareBoard)) {
+                                canGoThrought = true;
+                            }
                             break;
 
                         case (Black | Rook):
@@ -637,11 +683,15 @@ int main(void) {
                             break;
                             
                         case (Black | Knight):
-                            canGoThrought = true;
+                            if(knightPiecesValidMoveCheck(mouseOnBoard, squareBoard)) {
+                                canGoThrought = true;
+                            }
                             break;
                             
                         case (Black | King):
-                            canGoThrought = true;
+                            if(kingPiecesValidMoveCheck(mouseOnBoard, squareBoard)) {
+                                canGoThrought = true;
+                            }
                             break;
 
                     }
