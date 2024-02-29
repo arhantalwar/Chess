@@ -1,6 +1,5 @@
 #include <ctype.h>
 #include <stdbool.h>
-#include <stdint.h>
 #include <stdio.h>
 #include <raylib.h>
 #include <stdlib.h>
